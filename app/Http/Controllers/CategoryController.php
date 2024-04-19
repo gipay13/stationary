@@ -2,63 +2,108 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categories;
+use App\Models\Products;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-
+        if ($request->ajax()) {
+            $category = Categories::orderby('created_at', 'ASC');
+            return DataTables::of($category)
+                ->addIndexColumn()
+                ->addColumn('action', function ($item) {
+                    return '
+                    <button data-value="'.$item->slug.'" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 edit-category">
+                        Edit
+                    </button>
+                    <button data-value="'.$item->slug.'" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 delete-category">
+                        Delete
+                    </button>
+                    ';
+                })
+                ->rawColumns(['STATUS', 'action'])
+                ->make();
+        }
+        return view('pages.category.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $validation = $this->validation($request);
+
+            if ($validation->fails()) {
+                return $this->response(422, 'Unprocessable Entity', $validation->errors());
+            } else {
+                $category = Categories::create([
+                    'nama' => Str::title($request->name),
+                    'slug' => Str::slug($request->name)
+                ]);
+                $category->save();
+
+                return $this->response(201, 'Created', ['icon' => 'success', 'title' => 'Sukses', 'text' => 'Kategori Berhasil Ditambah']);
+            }
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $category = Categories::where('slug', $request->val)->first();
+            return response()->json(['category' => $category]);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $validation = $this->validation($request);
+
+            if ($validation->fails()) {
+                return $this->response(422, 'Unprocessable Entity', $validation->errors());
+            } else {
+                $category = Categories::where('id', $request->id);
+                $category->update([
+                    'nama' => Str::title($request->name),
+                    'slug' => Str::slug($request->name)
+                ]);
+
+                return $this->response(201, 'Created', ['icon' => 'success', 'title' => 'Sukses', 'text' => 'Kategori Berhasil Diubah']);
+            }
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            // $category = Products::where('slug', $request->val)->first();
+
+            // if ($category) {
+            //     return $this->response(200, 'OK', ['icon' => 'warning', 'title' => 'Gagal', 'text' => 'Kategori Ini Telah Digunakan Di List Barang']);
+            // }
+
+            Categories::where('slug', $request->val)->delete();
+            return $this->response(200, 'OK', ['icon' => 'success', 'title' => 'Sukses', 'text' => 'Kategori Berhasil Dihapus']);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function validation(Request $request)
     {
-        //
+        $rules = [
+            'name' => ['required', 'unique:categories,nama,'.$request->id]
+        ];
+
+        $messages = [
+            'name.required' => 'Kategori harus diisi',
+            'name.unique' => 'Kategori sudah ada',
+        ];
+
+        return Validator::make($request->all(), $rules, $messages);
     }
 }
