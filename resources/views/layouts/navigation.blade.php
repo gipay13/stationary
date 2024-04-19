@@ -36,7 +36,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
+                    <x-nav-link :href="route('stationary.index')" :active="request()->routeIs('stationary.*') ">
                         {{ __('Pengajuan') }}
                     </x-nav-link>
                 </div>

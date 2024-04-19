@@ -26,7 +26,7 @@ class UserController extends Controller
                     })->implode(',');
                 })
                 ->addColumn('status', function ($item) {
-                    return $item->email_verified_at == null ? '<span class="bg-red-500 py-2 px-4 rounded-full text-white">Belum Verifikasi Email</span>' : '<span class=" py-2 px-4 rounded-full text-white" style="background-color: rgb(34 197 94);">Aktif</span>';
+                    return $item->email_verified_at == null ? '<span class="bg-red-500 py-1 px-4 rounded-full text-white text-xs">Belum Verifikasi Email</span>' : '<span class="bg-green-500 py-1 px-4 rounded-full text-white text-xs">Aktif</span>';
                 })
                 ->addColumn('action', function ($item) {
                     return '

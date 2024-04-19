@@ -17,6 +17,7 @@ return new class extends Migration
             // $table->foreign('id_kategori')->references('id')->on('categories');
             $table->unsignedBigInteger('id_supplier');
             // $table->foreign('id_supplier')->references('id')->on('suppliers');
+            $table->char('kode', 100);
             $table->string('nama');
             $table->timestamps();
         });

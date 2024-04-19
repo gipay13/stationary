@@ -15,6 +15,7 @@
                                 <th>No</th>
                                 <th>Kategori</th>
                                 <th>Supplier</th>
+                                <th>Kode</th>
                                 <th>Nama</th>
                                 <th>Aksi</th>
                             </tr>
@@ -93,6 +94,7 @@
                     { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
                     { data: 'category.nama', name: 'category.nama'},
                     { data: 'supplier.nama', name: 'supplier.nama'},
+                    { data: 'kode', name: 'kode'},
                     { data: 'nama', name: 'nama'},
                     { data: 'action', name: 'action'},
                 ],

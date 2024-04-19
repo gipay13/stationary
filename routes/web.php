@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Invokable\SearchProduct;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\StationaryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -47,6 +49,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user/edit', [UserController::class, 'edit'])->name('user.edit');
     Route::patch('/user/edit', [UserController::class, 'update'])->name('user.update');
     Route::delete('/user', [UserController::class, 'destroy'])->name('user.destroy');
+
+    // Pengajuan
+    Route::get('/stationary', [StationaryController::class, 'index'])->name('stationary.index');
+    Route::get('/stationary/create', [StationaryController::class, 'create'])->name('stationary.create');
+    Route::post('/stationary/create', [StationaryController::class, 'store'])->name('stationary.store');
+    Route::get('/stationary/{id}/show', [StationaryController::class, 'show'])->name('stationary.show');
+    Route::patch('/stationary/{id}/show', [StationaryController::class, 'update']);
+
+    // Invokable Controller
+    Route::get('/get-product', SearchProduct::class)->name('get-product');
 });
 
 require __DIR__.'/auth.php';

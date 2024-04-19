@@ -12,6 +12,7 @@ class Products extends Model
     protected $fillable = [
         'id_kategori',
         'id_supplier',
+        'kode',
         'nama'
     ];
 

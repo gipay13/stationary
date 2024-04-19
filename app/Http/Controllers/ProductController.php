@@ -48,6 +48,7 @@ class ProductController extends Controller
                 $product = Products::create([
                     'id_kategori' => $request->category,
                     'id_supplier' => $request->supplier,
+                    'kode' => $this->setProductCode(),
                     'nama' => $request->name,
                 ]);
                 $product->save();
