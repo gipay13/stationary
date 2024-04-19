@@ -4,7 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupplierController;
-use App\Models\Suppliers;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -40,6 +40,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/product/edit', [ProductController::class, 'edit'])->name('product.edit');
     Route::patch('/product/edit', [ProductController::class, 'update'])->name('product.update');
     Route::delete('/product', [ProductController::class, 'destroy'])->name('product.destroy');
+
+    // User
+    Route::get('/user', [UserController::class, 'index'])->name('user.index');
+    Route::post('/user', [UserController::class, 'store'])->name('user.store');
+    Route::get('/user/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::patch('/user/edit', [UserController::class, 'update'])->name('user.update');
+    Route::delete('/user', [UserController::class, 'destroy'])->name('user.destroy');
 });
 
 require __DIR__.'/auth.php';
