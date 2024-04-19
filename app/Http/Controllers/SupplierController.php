@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Products;
 use App\Models\Suppliers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -83,11 +84,11 @@ class SupplierController extends Controller
     public function destroy(Request $request)
     {
         if ($request->ajax()) {
-            // $category = Products::where('slug', $request->val)->first();
+            $product = Products::where('id_supplier', $request->val)->first();
 
-            // if ($category) {
-            //     return $this->response(200, 'OK', ['icon' => 'warning', 'title' => 'Gagal', 'text' => 'Kategori Ini Telah Digunakan Di List Barang']);
-            // }
+            if ($product) {
+                return $this->response(200, 'OK', ['icon' => 'warning', 'title' => 'Gagal', 'text' => 'Supplier Ini Telah Digunakan Di List Produk']);
+            }
 
             Suppliers::where('id', $request->val)->delete();
             return $this->response(200, 'OK', ['icon' => 'success', 'title' => 'Sukses', 'text' => 'Supplier Berhasil Dihapus']);
