@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categories;
-use App\Models\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
@@ -27,7 +26,7 @@ class CategoryController extends Controller
                     </button>
                     ';
                 })
-                ->rawColumns(['STATUS', 'action'])
+                ->rawColumns(['action'])
                 ->make();
         }
         return view('pages.category.index');

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SupplierController;
+use App\Models\Suppliers;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -23,6 +25,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/category/edit', [CategoryController::class, 'edit'])->name('category.edit');
     Route::patch('/category/edit', [CategoryController::class, 'update'])->name('category.update');
     Route::delete('/category', [CategoryController::class, 'destroy'])->name('category.destroy');
+
+    // Supplier
+    Route::get('/supplier', [SupplierController::class, 'index'])->name('supplier.index');
+    Route::post('/supplier', [SupplierController::class, 'store'])->name('supplier.store');
+    Route::get('/supplier/edit', [SupplierController::class, 'edit'])->name('supplier.edit');
+    Route::patch('/supplier/edit', [SupplierController::class, 'update'])->name('supplier.update');
+    Route::delete('/supplier', [SupplierController::class, 'destroy'])->name('supplier.destroy');
 });
 
 require __DIR__.'/auth.php';

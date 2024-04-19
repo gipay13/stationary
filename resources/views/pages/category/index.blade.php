@@ -75,7 +75,7 @@
             $('#category-form').submit(function (e) {
                 e.preventDefault();
 
-                if ($('#category-form').attr('data-form') == 'create') {
+                if ($(this).attr('data-form') == 'create') {
                     var route = "{{ route('category.store') }}"
                     var method = "post"
                 } else {
