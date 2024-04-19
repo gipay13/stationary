@@ -92,7 +92,7 @@ class CategoryController extends Controller
         }
     }
 
-    public function validation(Request $request)
+    private function validation(Request $request)
     {
         $rules = [
             'name' => ['required', 'unique:categories,nama,'.$request->id]

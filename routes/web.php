@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupplierController;
 use App\Models\Suppliers;
@@ -32,6 +33,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/supplier/edit', [SupplierController::class, 'edit'])->name('supplier.edit');
     Route::patch('/supplier/edit', [SupplierController::class, 'update'])->name('supplier.update');
     Route::delete('/supplier', [SupplierController::class, 'destroy'])->name('supplier.destroy');
+
+    // Supplier
+    Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+    Route::post('/product', [ProductController::class, 'store'])->name('product.store');
+    Route::get('/product/edit', [ProductController::class, 'edit'])->name('product.edit');
+    Route::patch('/product/edit', [ProductController::class, 'update'])->name('product.update');
+    Route::delete('/product', [ProductController::class, 'destroy'])->name('product.destroy');
 });
 
 require __DIR__.'/auth.php';

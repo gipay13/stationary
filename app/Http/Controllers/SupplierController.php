@@ -94,7 +94,7 @@ class SupplierController extends Controller
         }
     }
 
-    public function validation(Request $request)
+    private function validation(Request $request)
     {
         $rules = [
             'name' => 'required',
