@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             CategoriesSeeder::class,
             SupplierSeeder::class,
             ProductSeeder::class,
-            ModelHasRoleSeeder::class
+            ModelHasRoleSeeder::class,
+            DepartmentSeeder::class,
         ]);
     }
 }

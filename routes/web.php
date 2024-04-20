@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\Invokable\SearchProduct;
 use App\Http\Controllers\Invokable\UserWithSupervisorRole;
 use App\Http\Controllers\ProductController;
@@ -41,15 +42,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('/user/edit', [UserController::class, 'update'])->name('user.update');
         Route::delete('/user', [UserController::class, 'destroy'])->name('user.destroy');
 
-        // Product
-        Route::post('/product', [ProductController::class, 'store'])->name('product.store');
-        Route::get('/product/edit', [ProductController::class, 'edit'])->name('product.edit');
-        Route::patch('/product/edit', [ProductController::class, 'update'])->name('product.update');
-        Route::delete('/product', [ProductController::class, 'destroy'])->name('product.destroy');
+        // Department
+        Route::get('/department', [DepartmentController::class, 'index'])->name('department.index');
+        Route::post('/department', [DepartmentController::class, 'store'])->name('department.store');
+        Route::get('/department/edit', [DepartmentController::class, 'edit'])->name('department.edit');
+        Route::patch('/department/edit', [DepartmentController::class, 'update'])->name('department.update');
+        Route::delete('/department', [DepartmentController::class, 'destroy'])->name('department.destroy');
     });
 
     // Product
     Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+    Route::post('/product', [ProductController::class, 'store'])->middleware('role:admin')->name('product.store');
+    Route::get('/product/edit', [ProductController::class, 'edit'])->middleware('role:admin')->name('product.edit');
+    Route::patch('/product/edit', [ProductController::class, 'update'])->middleware('role:admin')->name('product.update');
+    Route::delete('/product', [ProductController::class, 'destroy'])->middleware('role:admin')->name('product.destroy');
 
     // Pengajuan
     Route::get('/stationary', [StationaryController::class, 'index'])->name('stationary.index');
