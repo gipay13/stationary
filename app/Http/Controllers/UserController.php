@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Departments;
 use App\Models\Stationaries;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -18,7 +19,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $suppliers = User::orderby('created_at', 'ASC');
+            $suppliers = User::with('department')->orderby('created_at', 'ASC');
             return DataTables::of($suppliers)
                 ->addIndexColumn()
                 ->addColumn('roles', function ($item) {
@@ -39,7 +40,10 @@ class UserController extends Controller
                 ->rawColumns(['action', 'status'])
                 ->toJson();
         }
-        $data = ['role' => Role::all()];
+        $data = [
+            'role' => Role::all(),
+            'department' => Departments::all()
+        ];
         return view('pages.user.index', $data);
     }
 
@@ -56,6 +60,7 @@ class UserController extends Controller
                         'name' => $request->name,
                         'email' => $request->email,
                         'password' => Hash::make($request->password),
+                        'department_id' => $request->department
                     ]);
 
                     $user->assignRole($request->role);
@@ -94,6 +99,7 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:191'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:191', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'department' => 'required'
         ];
 
         $messages = [
@@ -101,6 +107,7 @@ class UserController extends Controller
             'email.required' => 'Email harus diisi',
             'password.required' => 'Password harus diisi',
             'password.confirmed' => 'Password harus sesuai',
+            'department.required' => 'Departemen harus diisi',
         ];
 
         return Validator::make($request->all(), $rules, $messages);

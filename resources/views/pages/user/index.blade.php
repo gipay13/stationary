@@ -19,6 +19,7 @@
                                 <th>No</th>
                                 <th>Username</th>
                                 <th>Nama</th>
+                                <th>Departemen</th>
                                 <th>Role</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
@@ -43,13 +44,22 @@
                         <div class="pb-5">
                             <x-input-label for="name" :value="__('Nama')" />
                             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" required autofocus autocomplete="name" />
-                            <input type="hidden" name="id" id="id">
                         </div>
 
                         <!-- Email -->
                         <div class="pb-5">
                             <x-input-label for="email" :value="__('Email')" />
                             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" required autocomplete="email" />
+                        </div>
+
+                        <div class="pb-5">
+                            <x-input-label for="rodepartmentle" :value="__('Departemen')" />
+                            <select id="department" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" name="department" required autofocus>
+                                <option value="">-- Pilih --</option>
+                                @foreach ($department as $d)
+                                    <option value="{{$d->id}}">{{$d->nama}}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="pb-5">
@@ -60,7 +70,6 @@
                                     <option value="{{$r->name}}">{{$r->name}}</option>
                                 @endforeach
                             </select>
-                            <input type="hidden" name="id" id="id">
                         </div>
 
                         <!-- Password -->
@@ -112,6 +121,7 @@
                     { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
                     { data: 'email', name: 'email'},
                     { data: 'name', name: 'name'},
+                    { data: 'department.nama', name: 'department.nama'},
                     { data: 'roles', name: 'roles.name', orderable: false, searchable: false},
                     { data: 'status', name: 'status', orderable: false, searchable: false},
                     { data: 'action', name: 'action'},
