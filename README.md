@@ -18,6 +18,12 @@ STEP 3:
 ```
 php artisan migrate --seed
 ```
+username
+`admin@gmail.com | staff@gmail.com | supervisor@gmail.com`
+
+password
+`password`
+
 STEP 4:
 ```
 php artisan key:generate
@@ -34,4 +40,4 @@ php artisan queue:listen
 ```
 
 ## Note
-jika queue pengiriman email gagal coba terminate `php artisan queue:listen` kemudian coba ulang pengajuan barang hingga proses di setujui kemudian jalankan `php artisan queue:work`
+jika queue pengiriman email statusnya gagal saat setelah melakukan pengajuan barang atau mengubah statusnya menjadi 'disetujui' coba terminate `php artisan queue:listen` kemudian coba ulang pengajuan barang hingga proses di setujui kemudian jalankan `php artisan queue:work`
