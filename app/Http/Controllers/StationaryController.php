@@ -22,12 +22,8 @@ class StationaryController extends Controller
     {
         if ($request->ajax()) {
             $stationary = Stationaries::with('product')
-                ->when(Auth::user()->hasRole('Staff'), function($query){
-                    return $query->where('id_user', Auth::user()->id);
-                })
-                ->when(Auth::user()->hasRole('Supervisor'), function($query){
-                    return $query->where('id_supervisor', Auth::user()->id);
-                })
+                ->where('id_departemen', Auth::user()->department_id)
+                ->when(Auth::user()->hasRole('Staff'), fn($query) => $query->where('id_user', Auth::user()->id))
                 ->orderby('created_at', 'DESC');
             return DataTables::of($stationary)
                     ->addIndexColumn()
@@ -70,15 +66,15 @@ class StationaryController extends Controller
                 $stationary_number = $this->setStationaryNumber();
 
                 Stationaries::create([
-                    'kode' => $stationary_number,
                     'id_user' => Auth::user()->id,
+                    'id_departemen' => Auth::user()->department_id,
+                    'kode' => $stationary_number,
                     'id_produk' => $request->product,
-                    'id_supervisor' => $request->supervisor,
                     'keterangan' => $request->note,
                     'id_status' => Stationaries::DIAJUKAN,
                 ])->save();
 
-                $this->service->sendEmailAfterCreateStationary(Auth::user()->id, $request->supervisor, $stationary_number);
+                $this->service->sendEmailAfterCreateStationary(Auth::user()->id, $stationary_number);
 
                 return $this->response(201, 'Created', ['icon' => 'success', 'title' => 'Sukses', 'text' => 'Permintaan Diajukan']);
             }
@@ -99,6 +95,7 @@ class StationaryController extends Controller
             if ($request->status == 'approve') {
                 $stationary->update([
                     'id_status' => Stationaries::DITERIMA,
+                    'catatan' => 'Disetujui oleh '.Auth::user()->name
                 ]);
 
                 $this->service->sendEmailAfterApprovingStationary(Auth::user()->id, $request->number);
@@ -108,6 +105,7 @@ class StationaryController extends Controller
 
             $stationary->update([
                 'id_status' => Stationaries::DITOLAK,
+                'catatan' => 'Ditolak oleh '.Auth::user()->name
             ]);
 
             return $this->response(201, 'Created', ['icon' => 'success', 'title' => 'Sukses', 'text' => 'Pengajuan Ditolak']);
@@ -123,13 +121,11 @@ class StationaryController extends Controller
     private function validation(Request $request)
     {
         $rules = [
-            'supervisor' => 'required',
             'product' => 'required',
             'note' => 'required',
         ];
 
         $messages = [
-            'supervisor.required' => 'Supervisor harus diisi',
             'product.required' => 'Produk harus diisi',
             'note.required' => 'Supplier harus diisi',
         ];

@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('stationaries', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('id_departemen');
             $table->string('kode');
             $table->unsignedBigInteger('id_produk');
             $table->text('keterangan');
             $table->integer('id_status');
+            $table->string('catatan')->nullable();
             $table->timestamps();
         });
     }

@@ -38,8 +38,8 @@ class UserStationaryNotification extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->greeting('Pengajuan Barang')
-                    ->line($this->user->name.' ('.$this->user->email.') telah mengajukan pangadaan barang, mohon di tinjau ulang di halaman berikut')
+                    ->greeting('Pengajuan Produk')
+                    ->line($this->user->name.' telah mengajukan pangadaan produk, mohon di tinjau ulang di halaman berikut')
                     ->action('Lihat Pengajuan', route('stationary.show', $this->stationary_number));
     }
 

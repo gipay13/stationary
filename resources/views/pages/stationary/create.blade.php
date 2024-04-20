@@ -18,13 +18,6 @@
                     </a>
                     <ul id="error" class="mb-4"></ul>
                     <form id="stationary-form">
-
-                        <div class="mb-4">
-                            <x-input-label for="supervisor" :value="__('Supervisor')" />
-                            <select class="selectpicker" name="supervisor" id="supervisor" style="width: 100%">
-                            </select>
-                        </div>
-
                         <div class="mb-4">
                             <x-input-label for="product" :value="__('Produk')" />
                             <select class="selectpicker" name="product" id="product" style="width: 100%">

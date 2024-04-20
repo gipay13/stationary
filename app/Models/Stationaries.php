@@ -15,10 +15,12 @@ class Stationaries extends Model
 
     protected $fillable = [
         'id_user',
+        'id_departemen',
         'kode',
         'id_produk',
         'keterangan',
-        'id_status'
+        'id_status',
+        'catatan',
     ];
 
     public function user()

@@ -72,21 +72,29 @@
                             <span class="font-semibold">
                                 @if ($stationary->id_status == 1)
                                     @role('Supervisor')
-                                        <button data-status="approve" data-number="{{$stationary->nomor_pengajuan}}" class="status-update inline-flex items-center px-4 py-2 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 focus:bg-green-700 active:bg-green-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                        <button data-status="approve" data-number="{{$stationary->kode}}" class="status-update inline-flex items-center px-4 py-2 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 focus:bg-green-700 active:bg-green-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                                             Terima
                                         </button>
-                                        <button data-status="reject" data-number="{{$stationary->nomor_pengajuan}}" class="status-update inline-flex items-center px-4 py-2 bg-red-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                        <button data-status="reject" data-number="{{$stationary->kode}}" class="status-update inline-flex items-center px-4 py-2 bg-red-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                                             Tolak
                                         </button>
                                     @endrole
                                 @elseif ($stationary->id_status == 2)
-                                    <a target="_blank" href="{{ route('stationary.print', $stationary->nomor_pengajuan) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 edit-product">
+                                    <a target="_blank" href="{{ route('stationary.print', $stationary->kode) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 edit-product">
                                         Cetak
                                     </a>
                                 @else
 
                                 @endif
                             </span>
+                        </div>
+                    </div>
+                    <div class="flex items-center mb-3">
+                        <div class="w-1/3">
+                            <span>Catatan</span>
+                        </div>
+                        <div class="w-2/3">
+                            <span class="font-semibold">{{$stationary->catatan}}</span>
                         </div>
                     </div>
                 </div>

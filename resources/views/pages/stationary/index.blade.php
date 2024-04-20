@@ -57,7 +57,7 @@
                 },
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
-                    { data: 'nomor_pengajuan', name: 'nomor_pengajuan'},
+                    { data: 'kode', name: 'kode'},
                     { data: 'product.nama', name: 'product.nama'},
                     { data: 'status', name: 'status'},
                     { data: 'action', name: 'action'},
