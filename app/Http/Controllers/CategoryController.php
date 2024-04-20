@@ -19,12 +19,12 @@ class CategoryController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($item) {
                     return '
-                    <button data-value="'.$item->id.'" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 edit-category">
-                        Edit
-                    </button>
-                    <button data-value="'.$item->id.'" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 delete-category">
-                        Delete
-                    </button>
+                        <button data-value="'.$item->id.'" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 edit-category">
+                            Edit
+                        </button>
+                        <button data-value="'.$item->id.'" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 delete-category">
+                            Delete
+                        </button>
                     ';
                 })
                 ->rawColumns(['action'])
@@ -43,7 +43,6 @@ class CategoryController extends Controller
             } else {
                 $category = Categories::create([
                     'nama' => Str::title($request->name),
-                    'slug' => Str::slug($request->name)
                 ]);
                 $category->save();
 
@@ -71,7 +70,6 @@ class CategoryController extends Controller
                 $category = Categories::where('id', $request->id);
                 $category->update([
                     'nama' => Str::title($request->name),
-                    'slug' => Str::slug($request->name)
                 ]);
 
                 return $this->response(201, 'Created', ['icon' => 'success', 'title' => 'Sukses', 'text' => 'Kategori Berhasil Diubah']);

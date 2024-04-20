@@ -42,7 +42,7 @@ class StationaryController extends Controller
                     })
                     ->addColumn('action', function ($item) {
                         return '
-                            <a href="'.route('stationary.show', $item->nomor_pengajuan).'" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                            <a href="'.route('stationary.show', $item->kode).'" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                                 Detail
                             </a>
                         ';
@@ -70,7 +70,7 @@ class StationaryController extends Controller
                 $stationary_number = $this->setStationaryNumber();
 
                 Stationaries::create([
-                    'nomor_pengajuan' => $stationary_number,
+                    'kode' => $stationary_number,
                     'id_user' => Auth::user()->id,
                     'id_produk' => $request->product,
                     'id_supervisor' => $request->supervisor,
@@ -87,7 +87,7 @@ class StationaryController extends Controller
 
     public function show(string $id)
     {
-        $data = ['stationary' => Stationaries::where('nomor_pengajuan', $id)->first()];
+        $data = ['stationary' => Stationaries::where('kode', $id)->first()];
         return view('pages.stationary.show', $data);
     }
 
@@ -95,7 +95,7 @@ class StationaryController extends Controller
     public function update(Request $request)
     {
         if ($request->ajax()) {
-            $stationary = Stationaries::where('nomor_pengajuan', $request->number);
+            $stationary = Stationaries::where('kode', $request->number);
             if ($request->status == 'approve') {
                 $stationary->update([
                     'id_status' => Stationaries::DITERIMA,
@@ -116,7 +116,7 @@ class StationaryController extends Controller
 
     public function print($id)
     {
-        $data = ['stationary' => Stationaries::where('nomor_pengajuan', $id)];
+        $data = ['stationary' => Stationaries::where('kode', $id)];
         return Pdf::loadView('pages.stationary.print', $data)->stream();
     }
 

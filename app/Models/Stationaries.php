@@ -14,10 +14,9 @@ class Stationaries extends Model
     public const DITOLAK = 3;
 
     protected $fillable = [
-        'nomor_pengajuan',
         'id_user',
+        'kode',
         'id_produk',
-        'id_supervisor',
         'keterangan',
         'id_status'
     ];

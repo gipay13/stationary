@@ -31,7 +31,7 @@ abstract class Controller
     public function setStationaryNumber()
     {
         $stationary = Stationaries::latest()->first();
-        $check = $stationary ? $stationary->nomor_pengajuan : '0000';
+        $check = $stationary ? $stationary->kode : '0000';
         $substr = (int)substr($check, -4);
         $count = $substr > 0 ? $substr+1 : 1;
         $padded = str_pad($count, '4', 0, STR_PAD_LEFT);

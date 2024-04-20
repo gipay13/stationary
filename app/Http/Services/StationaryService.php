@@ -20,7 +20,7 @@ class StationaryService
     public function sendEmailAfterApprovingStationary($from, $stationary_number)
     {
         $from_supervisor = User::findOrFail($from);
-        $stationary = Stationaries::where('nomor_pengajuan', $stationary_number)->first();
+        $stationary = Stationaries::where('kode', $stationary_number)->first();
         $to_user = User::findOrFail($stationary->id_user);
         Notification::send($to_user, new SupervisorApprovedStationaryNotification($from_supervisor, $stationary_number));
     }
