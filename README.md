@@ -19,12 +19,13 @@ STEP 3:
 php artisan migrate --seed
 ```
 username
-- admin@gmail.com
-- staff@gmail.com
-- supervisor@gmail.com
+`admin@gmail.com
+staff@gmail.com
+supervisor@gmail.com`
 
 password
-- password
+`password`
+
 STEP 4:
 ```
 php artisan key:generate
