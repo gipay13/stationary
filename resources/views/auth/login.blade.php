@@ -1,5 +1,6 @@
-<x-guest-layout>
-    <!-- Session Status -->
+@extends('layouts.auth.master')
+
+@section('content')
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <form method="POST" action="{{ route('login') }}">
@@ -39,4 +40,4 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+@endsection

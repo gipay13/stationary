@@ -1,6 +1,8 @@
-<x-guest-layout>
+@extends('layouts.auth.master')
+
+@section('content')
     <div class="mb-4 text-sm text-gray-600">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+        {{ __('Lupa Password? Masukan Email Untuk Dikirimkan Link Ganti Password') }}
     </div>
 
     <!-- Session Status -->
@@ -18,8 +20,8 @@
 
         <div class="flex items-center justify-end mt-4">
             <x-primary-button>
-                {{ __('Email Password Reset Link') }}
+                {{ __('Kirim Link Ganti Password') }}
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+@endsection

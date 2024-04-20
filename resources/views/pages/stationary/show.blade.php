@@ -1,9 +1,13 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Pengajuan') }}
-        </h2>
-    </x-slot>
+@extends('layouts.dashboard.master')
+
+@section('content')
+    <header class="bg-white shadow">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Pengajuan') }}
+            </h2>
+        </div>
+    </header>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -89,6 +93,9 @@
             </div>
         </div>
     </div>
+@endsection
+
+@push('script')
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
@@ -150,4 +157,4 @@
             });
         });
     </script>
-</x-app-layout>
+@endpush
