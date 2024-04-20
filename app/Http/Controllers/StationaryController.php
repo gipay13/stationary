@@ -57,7 +57,9 @@ class StationaryController extends Controller
                     'nomor_pengajuan' => $this->setStationaryNumber(),
                     'id_user' => Auth::user()->id,
                     'id_produk' => $request->product,
+                    'id_supervisor' => $request->supervisor,
                     'keterangan' => $request->note,
+                    'id_status' => Stationaries::DIAJUKAN,
                 ]);
                 $stationary->save();
 
@@ -87,12 +89,14 @@ class StationaryController extends Controller
     private function validation(Request $request)
     {
         $rules = [
+            'supervisor' => 'required',
             'product' => 'required',
             'note' => 'required',
         ];
 
         $messages = [
-            'product.required' => 'Barang harus diisi',
+            'supervisor.required' => 'Supervisor harus diisi',
+            'product.required' => 'Produk harus diisi',
             'note.required' => 'Supplier harus diisi',
         ];
 

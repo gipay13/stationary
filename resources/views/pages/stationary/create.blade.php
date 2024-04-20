@@ -13,6 +13,12 @@
                     <form id="stationary-form">
 
                         <div class="mb-4">
+                            <x-input-label for="supervisor" :value="__('Supervisor')" />
+                            <select class="selectpicker" name="supervisor" id="supervisor" style="width: 100%">
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
                             <x-input-label for="product" :value="__('Produk')" />
                             <select class="selectpicker" name="product" id="product" style="width: 100%">
                             </select>
@@ -37,7 +43,25 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('.selectpicker').select2({
+            $('#supervisor').select2({
+                placeholder: '-- Cari --',
+                allowClear: false,
+                minimumInputLength: 3,
+                ajax: {
+                    url: "{{ route('get-user-supervisor') }}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function(params) {
+                        return {val: params.term};
+                    },
+                    processResults: function (data) {
+                        return {results: data};
+                    },
+                    cache: true
+                },
+            });
+
+            $('#product').select2({
                 placeholder: '-- Cari --',
                 allowClear: false,
                 minimumInputLength: 3,
@@ -89,7 +113,7 @@
                                 allowOutsideClick: false,
                                 allowEscapeKey: false,
                             }).then((result) => {
-                                location.href = "{{route('stationary.index')}}"
+                                location.href = "{{ route('stationary.index') }}"
                             });
                         }
                         $('#submit').removeAttr('disabled');

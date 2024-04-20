@@ -17,6 +17,7 @@ class Stationaries extends Model
         'nomor_pengajuan',
         'id_user',
         'id_produk',
+        'id_supervisor',
         'keterangan',
         'id_status'
     ];

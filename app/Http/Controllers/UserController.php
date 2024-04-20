@@ -60,7 +60,7 @@ class UserController extends Controller
                     $user->assignRole($request->role);
                 });
 
-                return $this->response(201, 'Created', ['icon' => 'success', 'title' => 'Sukses', 'text' => 'Supplier Berhasil Ditambah']);
+                return $this->response(201, 'Created', ['icon' => 'success', 'title' => 'Sukses', 'text' => 'User Berhasil Ditambah']);
             }
         }
     }

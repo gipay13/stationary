@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Invokable\SearchProduct;
+use App\Http\Controllers\Invokable\UserWithSupervisorRole;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupplierController;
@@ -59,6 +60,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Invokable Controller
     Route::get('/get-product', SearchProduct::class)->name('get-product');
+    Route::get('/get-user-supervisor', UserWithSupervisorRole::class)->name('get-user-supervisor');
 });
 
 require __DIR__.'/auth.php';

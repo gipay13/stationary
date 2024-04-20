@@ -14,7 +14,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nomor Pengajuan</th>
-                                <th>Barang</th>
+                                <th>Produk</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>

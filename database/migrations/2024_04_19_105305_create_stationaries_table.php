@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nomor_pengajuan');
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_produk');
-            $table->unsignedBigInteger('id_atasan');
+            $table->unsignedBigInteger('id_supervisor');
             $table->text('keterangan');
             $table->integer('id_status');
             $table->timestamps();
