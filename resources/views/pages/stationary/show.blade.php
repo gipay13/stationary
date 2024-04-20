@@ -67,12 +67,18 @@
                         <div class="w-2/3">
                             <span class="font-semibold">
                                 @if ($stationary->id_status == 1)
-                                    <button data-status="Diterima" data-number="{{$stationary->nomor_pengajuan}}" class="status-update inline-flex items-center px-4 py-2 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 focus:bg-green-700 active:bg-green-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                        Terima
-                                    </button>
-                                    <button data-status="Ditolak" data-number="{{$stationary->nomor_pengajuan}}" class="status-update inline-flex items-center px-4 py-2 bg-red-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                        Tolak
-                                    </button>
+                                    @role('Supervisor')
+                                        <button data-status="approve" data-number="{{$stationary->nomor_pengajuan}}" class="status-update inline-flex items-center px-4 py-2 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 focus:bg-green-700 active:bg-green-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                            Terima
+                                        </button>
+                                        <button data-status="reject" data-number="{{$stationary->nomor_pengajuan}}" class="status-update inline-flex items-center px-4 py-2 bg-red-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                            Tolak
+                                        </button>
+                                    @endrole
+                                @elseif ($stationary->id_status == 2)
+                                    <a target="_blank" href="{{ route('stationary.print', $stationary->nomor_pengajuan) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 edit-product">
+                                        Cetak
+                                    </a>
                                 @else
 
                                 @endif
@@ -90,7 +96,7 @@
             $(document).on('click', '.status-update',function () {
                 let number = $(this).attr('data-number');
                 let status = $(this).attr('data-status');
-                let message = status == 'Diterima' ? 'Terima Pengajuan?' : 'Tolak Pengajuan?'
+                let message = status == 'approve' ? 'Terima Pengajuan?' : 'Tolak Pengajuan?'
 
                 Swal.fire({
                     title: message,

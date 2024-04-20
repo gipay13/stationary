@@ -17,7 +17,7 @@
                                 <th>Supplier</th>
                                 <th>Kode</th>
                                 <th>Nama</th>
-                                <th>Aksi</th>
+                                @role('Admin')<th>Aksi</th>@endrole
                             </tr>
                         </thead>
                         <tbody>
@@ -29,6 +29,7 @@
         </div>
     </div>
 
+    @role('Admin')
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -77,6 +78,8 @@
             </div>
         </div>
     </div>
+    @endrole
+
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.datatables.net/2.0.4/js/dataTables.js"></script>

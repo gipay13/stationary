@@ -3,18 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\StationaryService;
 use App\Models\Stationaries;
+use App\Models\User;
+use App\Notifications\UserStationaryNotification;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
 class StationaryController extends Controller
 {
+    private $service;
+
+    public function __construct(StationaryService $stationaryService) {
+        $this->service = $stationaryService;
+    }
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $stationary = Stationaries::with('product')->orderby('created_at', 'ASC');
+            $stationary = Stationaries::with('product')
+                ->when(Auth::user()->hasRole('Staff'), function($query){
+                    return $query->where('id_user', Auth::user()->id);
+                })
+                ->when(Auth::user()->hasRole('Supervisor'), function($query){
+                    return $query->where('id_supervisor', Auth::user()->id);
+                })
+                ->orderby('created_at', 'DESC');
             return DataTables::of($stationary)
                     ->addIndexColumn()
                     ->addColumn('status', function ($item) {
@@ -53,15 +70,18 @@ class StationaryController extends Controller
             if ($validation->fails()) {
                 return $this->response(422, 'Unprocessable Entity', $validation->errors());
             } else {
-                $stationary = Stationaries::create([
-                    'nomor_pengajuan' => $this->setStationaryNumber(),
+                $stationary_number = $this->setStationaryNumber();
+
+                Stationaries::create([
+                    'nomor_pengajuan' => $stationary_number,
                     'id_user' => Auth::user()->id,
                     'id_produk' => $request->product,
                     'id_supervisor' => $request->supervisor,
                     'keterangan' => $request->note,
                     'id_status' => Stationaries::DIAJUKAN,
-                ]);
-                $stationary->save();
+                ])->save();
+
+                $this->service->sendEmailAfterCreateStationary(Auth::user()->id, $request->supervisor, $stationary_number);
 
                 return $this->response(201, 'Created', ['icon' => 'success', 'title' => 'Sukses', 'text' => 'Permintaan Diajukan']);
             }
@@ -79,11 +99,28 @@ class StationaryController extends Controller
     {
         if ($request->ajax()) {
             $stationary = Stationaries::where('nomor_pengajuan', $request->number);
+            if ($request->status == 'approve') {
+                $stationary->update([
+                    'id_status' => Stationaries::DITERIMA,
+                ]);
+
+                $this->service->sendEmailAfterApprovingStationary(Auth::user()->id, $request->number);
+
+                return $this->response(201, 'Created', ['icon' => 'success', 'title' => 'Sukses', 'text' => 'Pengajuan Diterima']);
+            }
+
             $stationary->update([
-                'id_status' => $request->status == 'Diterima' ? Stationaries::DITERIMA : Stationaries::DITOLAK,
+                'id_status' => Stationaries::DITOLAK,
             ]);
-            return $this->response(201, 'Created', ['icon' => 'success', 'title' => 'Sukses', 'text' => 'Pengajuan '.$request->status]);
+
+            return $this->response(201, 'Created', ['icon' => 'success', 'title' => 'Sukses', 'text' => 'Pengajuan Ditolak']);
         }
+    }
+
+    public function print($id)
+    {
+        $data = ['stationary' => Stationaries::where('nomor_pengajuan', $id)];
+        return Pdf::loadView('pages.stationary.print', $data)->stream();
     }
 
     private function validation(Request $request)
