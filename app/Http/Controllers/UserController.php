@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Stationaries;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -73,14 +74,18 @@ class UserController extends Controller
         }
     }
 
-    public function update(Request $request, string $id)
+    public function destroy(Request $request)
     {
-        //
-    }
+        if ($request->ajax()) {
+            $stationary = Stationaries::where('id_user', $request->val)->orWhere('id_supervisor', $request->val)->first();
 
-    public function destroy(string $id)
-    {
-        //
+            if ($stationary) {
+                return $this->response(200, 'OK', ['icon' => 'warning', 'title' => 'Gagal', 'text' => 'User Tidak Bisa Dihapus']);
+            }
+
+            User::where('id', $request->val)->delete();
+            return $this->response(200, 'OK', ['icon' => 'success', 'title' => 'Sukses', 'text' => 'User Berhasil Dihapus']);
+        }
     }
 
     private function validation(Request $request)

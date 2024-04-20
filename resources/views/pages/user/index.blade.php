@@ -101,8 +101,8 @@
                     { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
                     { data: 'email', name: 'email'},
                     { data: 'name', name: 'name'},
-                    { data: 'roles', name: 'roles.name'},
-                    { data: 'status', name: 'status'},
+                    { data: 'roles', name: 'roles.name', orderable: false, searchable: false},
+                    { data: 'status', name: 'status', orderable: false, searchable: false},
                     { data: 'action', name: 'action'},
                 ],
             });
@@ -160,7 +160,7 @@
                 });
             });
 
-            $(document).on('click', '.delete-supplier',function () {
+            $(document).on('click', '.delete-user',function () {
                 let val = $(this).attr('data-value');
 
                 Swal.fire({
@@ -180,7 +180,7 @@
 
                         $.ajax({
                             type: "delete",
-                            url: "{{ route('supplier.destroy') }}",
+                            url: "{{ route('user.destroy') }}",
                             data: { val:val },
                             dataType: "json",
                             success: function (response) {

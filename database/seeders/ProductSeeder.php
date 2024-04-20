@@ -37,7 +37,7 @@ class ProductSeeder extends Seeder
                     'id' => 3,
                     'id_kategori' => 3,
                     'id_supplier' => 2,
-                    'kode' => 'BRG.0002',
+                    'kode' => 'BRG.0003',
                     'nama' => 'Homedoki Kursi Kantor',
                     'created_at' => now(),
                     'updated_at' => now(),

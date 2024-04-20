@@ -69,7 +69,7 @@ class ProductController extends Controller
         }
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
         if ($request->ajax()) {
             $validation = $this->validation($request);

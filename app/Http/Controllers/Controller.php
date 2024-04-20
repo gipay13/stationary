@@ -20,7 +20,7 @@ abstract class Controller
 
     public function setProductCode()
     {
-        $product = Products::latest()->first();
+        $product = Products::latest('ID')->first();
         $check = $product ? $product->kode : '0000';
         $substr = (int)substr($check, -4);
         $count = $substr > 0 ? $substr+1 : 1;
