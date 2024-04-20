@@ -15,8 +15,7 @@ class UserWithSupervisorRole extends Controller
     {
         if(request()->ajax()){
             $query = User::role('Supervisor')->select(['id', 'email', 'name'])
-                        ->where('email', 'like', '%'.$request->val.'%')
-                        ->orWhere('name', 'like', '%'.$request->val.'%')
+                        ->where('name', 'like', '%'.$request->val.'%')
                         ->get();
             $user = [];
 
