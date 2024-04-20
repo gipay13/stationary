@@ -15,24 +15,37 @@ STEP 2:
 cp .env.example .env
 ```
 STEP 3:
+
+Setting Config Mailtrap
+```
+MAIL_MAILER=
+MAIL_HOST=
+MAIL_PORT=
+MAIL_USERNAME=
+MAIL_PASSWORD=
+```
+STEP 4:
 ```
 php artisan migrate --seed
 ```
-username
-`admin@gmail.com | staff@gmail.com | supervisor@gmail.com`
-
-password
-`password`
-
-STEP 4:
 ```
-php artisan key:generate
+Username
+    admin@gmail.com 
+    staff@gmail.com 
+    supervisor@gmail.com
+
+Password
+    password
 ```
 STEP 5:
 ```
-php artisan serve
+php artisan key:generate
 ```
 STEP 6:
+```
+php artisan serve
+```
+STEP 7:
 
 Buka terminal baru
 ```
