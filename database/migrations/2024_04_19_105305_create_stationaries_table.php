@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('stationaries', function (Blueprint $table) {
             $table->id();
-            $table->string('nomor_pengajuan');
             $table->unsignedBigInteger('id_user');
+            $table->string('kode');
             $table->unsignedBigInteger('id_produk');
-            $table->unsignedBigInteger('id_supervisor');
             $table->text('keterangan');
             $table->integer('id_status');
             $table->timestamps();
