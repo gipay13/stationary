@@ -19,7 +19,7 @@
                     <ul id="error" class="mb-4"></ul>
                     <form id="stationary-form">
                         <div class="mb-4">
-                            <x-input-label for="product" :value="__('Produk')" />
+                            <x-input-label for="product" :value="__('Barang')" />
                             <select class="selectpicker" name="product" id="product" style="width: 100%">
                             </select>
                         </div>

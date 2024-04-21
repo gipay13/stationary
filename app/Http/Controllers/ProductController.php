@@ -56,7 +56,7 @@ class ProductController extends Controller
                 ]);
                 $product->save();
 
-                return $this->response(201, 'Created', ['icon' => 'success', 'title' => 'Sukses', 'text' => 'Produk Berhasil Ditambah']);
+                return $this->response(201, 'Created', ['icon' => 'success', 'title' => 'Sukses', 'text' => 'Barang Berhasil Ditambah']);
             }
         }
     }
@@ -84,7 +84,7 @@ class ProductController extends Controller
                     'nama' => $request->name,
                 ]);
 
-                return $this->response(201, 'Created', ['icon' => 'success', 'title' => 'Sukses', 'text' => 'Produk Berhasil Diubah']);
+                return $this->response(201, 'Created', ['icon' => 'success', 'title' => 'Sukses', 'text' => 'Barang Berhasil Diubah']);
             }
         }
     }
@@ -93,7 +93,7 @@ class ProductController extends Controller
     {
         if ($request->ajax()) {
             Products::where('id', $request->val)->delete();
-            return $this->response(200, 'OK', ['icon' => 'success', 'title' => 'Sukses', 'text' => 'Produk Berhasil Dihapus']);
+            return $this->response(200, 'OK', ['icon' => 'success', 'title' => 'Sukses', 'text' => 'Barang Berhasil Dihapus']);
         }
     }
 

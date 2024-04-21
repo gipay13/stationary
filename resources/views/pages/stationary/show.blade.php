@@ -21,7 +21,7 @@
                             <span>Nomor Pengajuan</span>
                         </div>
                         <div class="w-2/3">
-                            <span class="font-semibold">{{$stationary->nomor_pengajuan}}</span>
+                            <span class="font-semibold">{{$stationary->kode}}</span>
                         </div>
                     </div>
                     <div class="flex items-center mb-3">
@@ -34,7 +34,7 @@
                     </div>
                     <div class="flex items-center mb-3">
                         <div class="w-1/3">
-                            <span>Produk</span>
+                            <span>Barang</span>
                         </div>
                         <div class="w-2/3">
                             <span class="font-semibold">{{$stationary->product->nama}}</span>

@@ -23,7 +23,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nomor Pengajuan</th>
-                                <th>Produk</th>
+                                <th>Barang</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>

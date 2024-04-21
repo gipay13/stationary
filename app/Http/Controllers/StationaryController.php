@@ -126,7 +126,7 @@ class StationaryController extends Controller
         ];
 
         $messages = [
-            'product.required' => 'Produk harus diisi',
+            'product.required' => 'Barang harus diisi',
             'note.required' => 'Supplier harus diisi',
         ];
 
