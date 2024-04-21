@@ -31,8 +31,6 @@ php artisan migrate --seed
 ```
 Username
     admin@gmail.com 
-    staff@gmail.com 
-    supervisor@gmail.com
 
 Password
     password
