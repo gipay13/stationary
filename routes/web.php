@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\StationaryController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\PrintProof;
 use Illuminate\Support\Facades\Route;
 
 
@@ -62,7 +63,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/stationary/create', [StationaryController::class, 'store'])->middleware(['role:Staff'])->name('stationary.store');
     Route::get('/stationary/{id}/show', [StationaryController::class, 'show'])->name('stationary.show');
     Route::patch('/stationary/{id}/show', [StationaryController::class, 'update']);
-    Route::get('/stationary/{id}/print', [StationaryController::class, 'print'])->name('stationary.print');
+    Route::get('/stationary/{id}/print', [StationaryController::class, 'print'])->middleware(PrintProof::class)->name('stationary.print');
 
     // Invokable Controller
     Route::get('/get-product', SearchProduct::class)->name('get-product');
